@@ -1,0 +1,78 @@
+{
+  "type": "module",
+  "name": "lab-management-system",
+  "productName": "Lab Management System",
+  "version": "1.0.0",
+  "description": "Lab Management System is a desktop app designed to streamline lab operations, featuring user management, session tracking, and credit and print management. It offers secure authentication, real-time data handling, and an intuitive interface for efficient lab administration.",
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix frontend\" \"npm run dev --prefix loading\" \"electron . --inspect\"",
+    "dev:run": "concurrently \"npm run dev --prefix frontend\" \"npm run server\"",
+    "server": "nodemon backend/server.js",
+    "start": "node backend/server.js",
+    "install": "npm install && npm install --prefix frontend",
+    "build": "npm install && npm install --prefix frontend && npm run build:frontend && npm run build:electron",
+    "build:frontend": "npm run build --prefix frontend",
+    "build:electron": "electron-builder"
+  },
+  "keywords": [
+    "lab",
+    "management",
+    "electron",
+    "desktop-app"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cloudinary": "^2.5.1",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "electron-is-dev": "^3.0.1",
+    "electron-store": "^8.2.0",
+    "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.7.2",
+    "multer": "^1.4.5-lts.1",
+    "node-machine-id": "^1.1.12",
+    "nodemon": "^3.1.7",
+    "streamifier": "^0.1.1",
+    "sudo-prompt": "^9.2.1"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0",
+    "electron": "^29.1.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.example.labmanagement",
+    "productName": "Lab Management System",
+    "artifactName": "${productName}-Setup-${version}.${ext}",
+    "files": [
+      "frontend/dist/**/*",
+      "electron/**/*",
+      "backend/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "output": "dist_electron",
+      "buildResources": "build"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "icon.png",
+      "signAndEditExecutable": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}
